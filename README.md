@@ -1,48 +1,27 @@
 Symfony2 PHP CodeSniffer Coding Standard
 ========================================
 
-A code standard to check against the [Symfony coding standards](http://symfony.com/doc/current/contributing/code/standards.html), shamelessly copied from the -disappeared- opensky/Symfony2-coding-standard repository.
+A coding standard to check against the [Symfony coding standards](http://symfony.com/doc/current/contributing/code/standards.html),
+copied from escapestudios/Symfony2-coding-standard which itself was copied from the -disappeared- opensky/Symfony2-coding-standard repository.
+
+Composer integration has been additionally enabled.
 
 Installation
 ------------
 
-1. Install phpcs:
+Require PHP_CodeSniffer and this sniff in your project `composer.json`:
 
-        pear install PHP_CodeSniffer
+```json
+{
+    "require-dev": {
+        "squizlabs/php_codesniffer": "~2.3",
+        "metasyntactical/symfony-coding-standard": "~1.0"
+    }
+}
+``
 
-2. Find your PEAR directory:
+Afterwards call CodeSniffer with the standard:
 
-        pear config-show | grep php_dir
-
-3. Copy, symlink or check out this repo to a folder called Symfony2 inside the
-   phpcs `Standards` directory:
-
-        cd /path/to/pear/PHP/CodeSniffer/Standards
-        git clone git://github.com/escapestudios/Symfony2-coding-standard.git Symfony2
-
-4. Set Symfony2 as your default coding standard:
-
-        phpcs --config-set default_standard Symfony2
-
-5. ...
-
-6. Profit!
-
-        cd /path/to/my/project
-        phpcs
-        phpcs path/to/my/file.php
-
-
-Contributing
-------------
-
-If you do contribute code to these sniffs, please make sure it conforms to the PEAR
-coding standard and that the Symfony2-coding-standard unit tests still pass.
-
-To check the coding standard, run from the Symfony2-coding-standard source root:
-
-    $ phpcs --ignore=*/tests/* --standard=PEAR . -n
-
-The unit-tests are run from within the PHP_CodeSniffer directory:
-
-    $ phpunit --filter Symfony2_* tests/AllTests.php
+```sh
+$ vendor/bin/phpcs $FILENAME --standard=vendor/metasyntactical/composer-codesniffer-hooks/Symfony2/ruleset.xml
+```

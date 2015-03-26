@@ -1,0 +1,13 @@
+{
+    "name": "metasyntactical/symfony-coding-standard",
+    "description": "A coding standard to check against the Symfony coding standards",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Kreuer",
+            "email": "d.kreuer@danielkreuer.com"
+        }
+    ],
+    "target-dir": "Symfony2"
+}
