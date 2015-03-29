@@ -31,8 +31,8 @@ class Symfony2_Sniffs_Arrays_MultiLineArrayCommaSniff implements PHP_CodeSniffer
      * @var array
      */
     public $supportedTokenizers = array(
-                                   'PHP',
-                                  );
+        'PHP',
+    );
 
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -41,9 +41,13 @@ class Symfony2_Sniffs_Arrays_MultiLineArrayCommaSniff implements PHP_CodeSniffer
      */
     public function register()
     {
-        return array(
-                T_ARRAY,
-               );
+        $tokens = array(
+            T_ARRAY,
+        );
+        if (version_compare(PHP_VERSION, '5.4.0', 'ge')) {
+            $tokens[] = T_OPEN_SHORT_ARRAY;
+        }
+        return $tokens;
 
     }//end register()
 
@@ -60,12 +64,17 @@ class Symfony2_Sniffs_Arrays_MultiLineArrayCommaSniff implements PHP_CodeSniffer
     {
         $tokens = $phpcsFile->getTokens();
         $open   = $tokens[$stackPtr];
-        $close  = $tokens[$open['parenthesis_closer']];
+        $closer = 'parenthesis_closer';
+        if (version_compare(PHP_VERSION, '5.4.0', 'ge') && $open['code'] == T_OPEN_SHORT_ARRAY)
+        {
+            $closer = 'bracket_closer';
+        }
+        $close  = $tokens[$open[$closer]];
 
         if ($open['line'] <> $close['line']) {
-            $lastComma = $phpcsFile->findPrevious(T_COMMA, $open['parenthesis_closer']);
+            $lastComma = $phpcsFile->findPrevious(T_COMMA, $open[$closer]);
 
-            while ($lastComma < $open['parenthesis_closer'] -1) {
+            while ($lastComma < $open[$closer] -1) {
                 $lastComma++;
 
                 if ($tokens[$lastComma]['code'] !== T_WHITESPACE) {
