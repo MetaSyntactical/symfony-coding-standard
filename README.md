@@ -1,6 +1,8 @@
 Symfony2 PHP CodeSniffer Coding Standard
 ========================================
 
+[![Packagist](https://img.shields.io/packagist/v/metasyntactical/symfony-coding-standard.svg?label=stable)](https://packagist.org/packages/metasyntactical/symfony-coding-standard)
+
 A coding standard to check against the [Symfony coding standards](http://symfony.com/doc/current/contributing/code/standards.html),
 copied from escapestudios/Symfony2-coding-standard which itself was copied from the -disappeared- opensky/Symfony2-coding-standard repository.
 
@@ -18,7 +20,7 @@ Require PHP_CodeSniffer and this sniff in your project `composer.json`:
         "metasyntactical/symfony-coding-standard": "~1.0"
     }
 }
-``
+```
 
 Afterwards call CodeSniffer with the standard:
 
